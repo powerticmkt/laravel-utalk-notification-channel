@@ -1,0 +1,53 @@
+{
+    "name": "powertic/utalk-notification-channel",
+    "description": "Utalk Laravel Notifications Channel",
+    "homepage": "https://github.com/powerticmkt/laravel-utalk-notification-channel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luiz Eduardo Oliveira Fonseca",
+            "email": "luizeof@gmail.com",
+            "homepage": "https://luizeof.dev/packages/utalk-notification-channel"
+        },
+        {
+            "name": "Powertic",
+            "email": "web@powertic.com",
+            "homepage": "https://powertic.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "guzzlehttp/guzzle": "^6.2 || ^7.0",
+        "illuminate/notifications": "^6.0 || ^7.0 || ^8.0",
+        "illuminate/support": "^6.0 || ^7.0 || ^8.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.3",
+        "phpunit/phpunit": "^9.0",
+        "orchestra/testbench": "^4.0 || ^5.0 || ^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Powertic\\Utalk\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Powertic\\Utalk\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test:ci": "phpunit --coverage-clover=coverage.xml"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Powertic\\Utalk\\UtalkServiceProvider"
+            ]
+        }
+    }
+}
