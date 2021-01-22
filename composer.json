@@ -19,7 +19,8 @@
         "php": "^7.2.5 || ^8.0",
         "guzzlehttp/guzzle": "^6.2 || ^7.0",
         "illuminate/notifications": "^6.0 || ^7.0 || ^8.0",
-        "illuminate/support": "^6.0 || ^7.0 || ^8.0"
+        "illuminate/support": "^6.0 || ^7.0 || ^8.0",
+        "propaganistas/laravel-phone": "^4.2"
     },
     "require-dev": {
         "mockery/mockery": "^1.3",

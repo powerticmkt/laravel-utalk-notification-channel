@@ -7,6 +7,7 @@ use GuzzleHttp\RequestOptions;
 use Illuminate\Notifications\Notification;
 use Powertic\Utalk\Exceptions\CouldNotSendNotification;
 use Powertic\Utalk\Exceptions\InvalidConfiguration;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 class UtalkChannel
 {
@@ -19,6 +20,19 @@ class UtalkChannel
     public function __construct(Utalk $utalk)
     {
         $this->utalk = $utalk;
+    }
+
+    /**
+     * Transform Mobile Number to Utalk Format
+     *
+     * @param [string] $mobile
+     * @return string
+     */
+    private function transformMobileNumber($mobile)
+    {
+        $transformed = PhoneNumber::make($mobile)->formatE164();
+        $transformed = str_replace('+', '', $transformed);
+        return "{$transformed}@c.us";
     }
 
     /**
@@ -35,9 +49,11 @@ class UtalkChannel
     public function send($notifiable, Notification $notification)
     {
         // Exit if $notifiable doesn't have a route
-        if (!$to = $notifiable->routeNotificationFor('utalk')) {
+        if (!$mobile = $notifiable->routeNotificationFor('utalk')) {
             return;
         }
+
+        $to = $this->transformMobileNumber($mobile);
 
         // Exit if token not found
         if (!$token = $this->utalk->getToken()) {

@@ -34,6 +34,8 @@ Add your Utalk token on `app/services.php` file. You can get your API Token [her
 ],
 ```
 
+**You need to create a `UTALK_TOKEN` on your `.env` file.**
+
 ## Usage
 
 Now you can use the channel in your `via()` method inside the notification:
@@ -45,11 +47,24 @@ use Illuminate\Notifications\Notification;
 
 class TeamCreated extends Notification
 {
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
     public function via($notifiable)
     {
         return [UtalkChannel::class];
     }
 
+    /**
+     * Get the UTalk representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Powertic\Utalk\UtalkMessage
+     */
     public function toUtalk($notifiable)
     {
         return UtalkMessage::create()
@@ -60,9 +75,14 @@ class TeamCreated extends Notification
 
 In order to let your Notification know which number should receive the message, add the `routeNotificationForUtalk` method to your Notifiable model.
 
-This method needs to return the mobile number where the notification will be sent.
+**This method expects a [valid E.164 mobile number](https://en.wikipedia.org/wiki/E.164) where the notification will be sent.**
 
 ```php
+/**
+ * Route notifications for the Utalk channel.
+ *
+ * @return string
+*/
 public function routeNotificationForUtalk()
 {
     return $this->mobile;
